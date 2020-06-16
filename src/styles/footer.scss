@@ -19,4 +19,9 @@ footer{
         }        
         
     }
+
+    p{
+        display: inline-flex;
+        flex-direction: row-reverse;
+    }
 }

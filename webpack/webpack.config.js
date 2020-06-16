@@ -1,26 +1,34 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const miniCss = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
+const webpack = require("webpack");
 
 module.exports = {
     entry: './src/app.js',
     output: {
         path: path.resolve(__dirname, "../dist"),
         filename: 'recursos/js/bundle.min.js'
-    }
+    },
+    devtool: 'source-map',
+    devServer: {
+        port: 4000,
+        open: true
+    },
     module: {
         rules:[
+            {
+                test: /\.hbs/,
+                loader: 'handlebars-loader'
+            },
             {
                test: /\.(sa|sc|c)ss$/,
                use: [
                    miniCss.loader,
                    'css-loader',
+                   'postcss-loader',
                    'sass-loader'
                ]
-            },
-            {
-                test: /\.hbs/,
-                loader: 'handlebars-loader'
             },
             {
                 test: /\.(jpg|png|gif|jpeg|svg)$/,
@@ -64,10 +72,10 @@ module.exports = {
         new htmlWebpackPlugin({
             filename: 'index.html',
             hash: true,
-            template: './src/index.hbs',
-            minify: {
-                collapseWhitespace: true,
-                removeComments: true,
+            template: './src/index.hbs'
+            ,minify: {
+                collapseWhitespace: false,
+                removeComments: false,
                 removeRedundantAttributes: true,
                 removeScriptTypeAttributes: true,
                 removeStyleLinkTypeAttributes: true,
@@ -78,8 +86,8 @@ module.exports = {
             filename: 'about.html',
             template: './src/about.hbs',
             minify: {
-                collapseWhitespace: true,
-                removeComments: true,
+                collapseWhitespace: false,
+                removeComments: false,
                 removeRedundantAttributes: true,
                 removeScriptTypeAttributes: true,
                 removeStyleLinkTypeAttributes: true,
@@ -88,7 +96,13 @@ module.exports = {
         }),
         new miniCss({
             filename: 'recursos/css/[name].min.css'
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    autoprefixer()
+                ]
+            }
         })
     ]
 };
-

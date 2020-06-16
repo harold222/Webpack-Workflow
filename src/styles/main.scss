@@ -9,6 +9,10 @@ $negro: #000;
     font-family: sans-serif;
 }
 
+.autoprefixer-test {
+    user-select: none;
+}
+
 body{
     background-color: $negro;
     color: white;
