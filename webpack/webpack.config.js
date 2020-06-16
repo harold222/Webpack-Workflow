@@ -5,7 +5,12 @@ const autoprefixer = require("autoprefixer");
 const webpack = require("webpack");
 
 module.exports = {
-    entry: './src/app.js',
+    entry: {
+        app: [
+            "@babel/polyfill",
+            './src/app.js'
+        ]
+    },
     output: {
         path: path.resolve(__dirname, "../dist"),
         filename: 'recursos/js/bundle.min.js'
@@ -20,6 +25,9 @@ module.exports = {
             {
                 test: /\.hbs/,
                 loader: 'handlebars-loader'
+            },{
+                test: /\.js$/,
+                loader: 'babel-loader'
             },
             {
                test: /\.(sa|sc|c)ss$/,
