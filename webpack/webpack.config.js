@@ -80,19 +80,7 @@ module.exports = {
         new htmlWebpackPlugin({
             filename: 'index.html',
             hash: true,
-            template: './src/index.hbs'
-            ,minify: {
-                collapseWhitespace: false,
-                removeComments: false,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                useShortDoctype: true
-            }
-        }),
-        new htmlWebpackPlugin({
-            filename: 'about.html',
-            template: './src/about.hbs',
+            template: './src/index.hbs',
             minify: {
                 collapseWhitespace: false,
                 removeComments: false,
@@ -103,7 +91,7 @@ module.exports = {
             }
         }),
         new miniCss({
-            filename: 'recursos/css/[name].min.css'
+            filename: '[name].min.css'
         }),
         new webpack.LoaderOptionsPlugin({
             options: {
